@@ -1,0 +1,4 @@
+galaxy_info:
+    author: The Wikidata Team
+    description: cronjob that repeatedly pulls the latest version of the master branch of git remote(s)
+    company:

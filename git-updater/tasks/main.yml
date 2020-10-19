@@ -1,0 +1,16 @@
+---
+- name: Ensure git_update scripts are in place
+  template:
+    dest: "{{ SCRIPTS_DIR }}/git_updater.sh"
+    src: "templates/update.sh.j2"
+    owner: "{{ USERNAME }}"
+    group: "{{ USERNAME }}"
+    mode: 0774
+- name: Ensure update script runs every five minutes, from 6am to 9pm
+  cron:
+    name: "git_updater: {{item}}"
+    minute: "*/5"
+    hour: "6-21"
+    job: "{{ SCRIPTS_DIR }}/git_updater.sh {{ item }} {{ LOG_DIR }}"
+    user: "{{ USERNAME }}"
+  loop: "{{ git_directories }}"
