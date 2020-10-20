@@ -2,7 +2,7 @@
 
 Repo for storing ansible components and grouping them in roles to be reused in different projects.
 
-More about ansible roles can be found at [Ansibele's Docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html).
+More about ansible roles can be found at [Ansible's Docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html).
 
 ## Example
 
