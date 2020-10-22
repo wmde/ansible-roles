@@ -51,3 +51,6 @@ roles:
 $ ansible-galaxy install -r requirements.yml
 $ ansible-playbook setup.yml --limit <hostname>.wikidata-dev.eqiad.wmflabs
 ```
+
+### Example usage in WikibaseManifest
+See: [WikibaseManifest Infrastructure Code](https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/extensions/WikibaseManifest/+/refs/heads/master/infrastructure/) for somewhere this is used for WMDE test infrastructure.
