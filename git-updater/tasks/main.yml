@@ -1,4 +1,10 @@
 ---
+- name: Create scripts directory
+  file:
+    path: "{{ SCRIPTS_DIR }}"
+    owner: "{{ USERNAME }}"
+    group: "{{ USERNAME }}"
+    state: directory
 - name: Ensure git_update scripts are in place
   template:
     dest: "{{ SCRIPTS_DIR }}/git_updater.sh"
