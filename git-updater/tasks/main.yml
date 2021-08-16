@@ -20,3 +20,11 @@
     job: "{{ SCRIPTS_DIR }}/git_updater.sh {{ item }} {{ LOG_DIR }}"
     user: "{{ USERNAME }}"
   loop: "{{ git_directories }}"
+- name: Ensure diskspace is cleaned up every 15 minutes, from 6am to 9pm
+  cron:
+    name: "git_updater: {{item}}"
+    minute: "*/15"
+    hour: "6-21"
+    job: "{{ SCRIPTS_DIR }}/cleanup.sh {{ item }} {{ LOG_DIR }}"
+    user: "{{ USERNAME }}"
+  loop: "{{ git_directories }}"
