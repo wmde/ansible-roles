@@ -1,6 +1,26 @@
 #!/bin/bash
 GIT_PATH=$1
 LOG_DIR=$2
+CLEANUP_LOG=$LOG_DIR/cleanup.log
+GIT_LOG=$LOG_DIR/git.log
+COMPOSER_LOG=$LOG_DIR/composer.log
+MAINT_LOG=$LOG_DIR/maintenance.log
+ERROR_LOG=$LOG_DIR/error.log
 
+log () {
+  echo "$1" | tee -a "$2"
+}
+
+log_all () {
+  echo "$1" | tee -a  "${CLEANUP_LOG}" "${GIT_LOG}" "${COMPOSER_LOG}" "${MAINT_LOG}" "${ERROR_LOG}"
+}
+
+# start
+log_all "########### $(date) ###########"
+
+log "## updating ${GIT_PATH}" "${CLEANUP_LOG} ${GIT_LOG}"
 cd ${GIT_PATH}
-git remote prune origin && git repack && git prune-packed && git reflog expire --expire=1.month.ago && git gc --aggressive
+git remote prune origin && git repack && git prune-packed && git reflog expire --expire=1.month.ago && git gc --aggressive 2>> "$ERROR_LOG" | tee -a ${GIT_LOG}
+
+# done
+log_all "########### $(date) ###########"
