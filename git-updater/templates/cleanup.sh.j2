@@ -1,0 +1,16 @@
+#!/bin/bash
+GIT_PATH=$1
+LOG_DIR=$2
+CLEANUP_LOG=$LOG_DIR/cleanup.log
+ERROR_LOG=$LOG_DIR/error.log
+
+log () {
+  echo "$1" | tee -a "$2"
+}
+
+log "########### cleanup start $(date) $GIT_PATH ###########" "$CLEANUP_LOG"
+
+cd ${GIT_PATH}
+git gc && git repack -Ad && git prune >> "$ERROR_LOG" | tee -a ${CLEANUP_LOG}
+
+log "########### cleanup end $(date) $GIT_PATH ###########" "$CLEANUP_LOG"

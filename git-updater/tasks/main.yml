@@ -20,3 +20,17 @@
     job: "{{ SCRIPTS_DIR }}/git_updater.sh {{ item }} {{ LOG_DIR }}"
     user: "{{ USERNAME }}"
   loop: "{{ git_directories }}"
+- name: Ensure cleanup scripts are in place
+  template:
+    dest: "{{ SCRIPTS_DIR }}/cleanup.sh"
+    src: "templates/cleanup.sh.j2"
+    owner: "{{ USERNAME }}"
+    group: "{{ USERNAME }}"
+    mode: 0774
+- name: Ensure diskspace is cleaned once a day at 10pm
+  cron:
+    name: "git_updater: {{item}}"
+    hour: "22"
+    job: "{{ SCRIPTS_DIR }}/cleanup.sh {{ item }} {{ LOG_DIR }}"
+    user: "{{ USERNAME }}"
+  loop: "{{ git_directories }}"
