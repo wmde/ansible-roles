@@ -27,11 +27,10 @@
     owner: "{{ USERNAME }}"
     group: "{{ USERNAME }}"
     mode: 0774
-- name: Ensure diskspace is cleaned up every 30 minutes, from 6am to 9pm
+- name: Ensure diskspace is cleaned once a day at 10pm
   cron:
     name: "git_updater: {{item}}"
-    minute: "*/30"
-    hour: "6-21"
+    hour: "22"
     job: "{{ SCRIPTS_DIR }}/cleanup.sh {{ item }} {{ LOG_DIR }}"
     user: "{{ USERNAME }}"
   loop: "{{ git_directories }}"
