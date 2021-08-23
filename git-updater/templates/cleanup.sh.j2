@@ -11,6 +11,6 @@ log () {
 log "########### cleanup start $(date) $GIT_PATH ###########" "$CLEANUP_LOG"
 
 cd ${GIT_PATH}
-git remote prune origin && git repack && git prune-packed && git reflog expire --expire=1.month.ago && git gc --aggressive 2>> "$ERROR_LOG" | tee -a ${CLEANUP_LOG}
+git gc && git repack -Ad && git prune >> "$ERROR_LOG" | tee -a ${CLEANUP_LOG}
 
 log "########### cleanup end $(date) $GIT_PATH ###########" "$CLEANUP_LOG"
